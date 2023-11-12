@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:my_inventory/my_inventory_form.dart';
+import 'package:my_inventory/widgets/drawer_app.dart';
 
 class MyHomePage extends StatelessWidget {
   MyHomePage({Key? key}) : super(key: key);
 
+  //PENGERJAAN BONUS:
   final List<ShopItem> items = [
     ShopItem("Lihat Item", Icons.checklist, Colors.blue), // Warna biru
     ShopItem(
@@ -25,8 +28,11 @@ class MyHomePage extends StatelessWidget {
         title: const Text(
           'My Inventory',
         ),
-        // backgroundColor: ,
+        backgroundColor: Colors.indigo,
+        foregroundColor: Colors.white,
       ),
+      // Di bawah ini dimasukkan drawer sebagai parameter nilai drawer dari widgets Scaffold
+      drawer: const DrawerApp(),
       body: SingleChildScrollView(
         // Widget wrapper yang dapat discroll
         child: Padding(
@@ -93,6 +99,12 @@ class ShopCard extends StatelessWidget {
             ..hideCurrentSnackBar()
             ..showSnackBar(SnackBar(
                 content: Text("Kamu telah menekan tombol ${item.name}!")));
+          // Navigate ke route yang sesuai (tergantung jenis tombol)
+          if (item.name == "Tambah Produk") {
+            Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const InventoryAppFormPage()));
+
+          }
         },
         child: Container(
           // Container untuk menyimpan Icon dan Text
