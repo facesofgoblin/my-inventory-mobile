@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:my_inventory/menu.dart';
-import 'package:my_inventory/my_inventory_form.dart'; //impor form page
+import 'package:my_inventory/screens/list_product.dart';
+import 'package:my_inventory/screens/menu.dart';
+import 'package:my_inventory/screens/my_inventory_form.dart'; //impor form page
 
 class DrawerApp extends StatelessWidget {
   const DrawerApp({super.key});
@@ -65,6 +66,18 @@ class DrawerApp extends StatelessWidget {
                   ));
               //Buatlah routing ke ShopFormPage di sini,
               // setelah halaman ShopFormPage sudah dibuat.
+            },
+          ),
+
+          ListTile(
+            leading: const Icon(Icons.shopping_basket),
+            title: const Text('Daftar Produk'),
+            onTap: () {
+              // Route menu ke halaman produk
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const ProductPage()),
+              );
             },
           ),
         ],

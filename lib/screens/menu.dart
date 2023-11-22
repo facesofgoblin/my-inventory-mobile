@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_inventory/my_inventory_form.dart';
+import 'package:my_inventory/screens/my_inventory_form.dart';
 import 'package:my_inventory/widgets/drawer_app.dart';
 
 class MyHomePage extends StatelessWidget {
