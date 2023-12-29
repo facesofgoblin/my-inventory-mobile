@@ -1,6 +1,7 @@
 //membuat file baru
 import 'package:my_inventory/screens/menu.dart';
 import 'package:flutter/material.dart';
+import 'package:my_inventory/screens/register.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 
@@ -71,7 +72,7 @@ class _LoginPageState extends State<LoginPage> {
                 // Untuk menyambungkan Android emulator dengan Django pada localhost,
                 // gunakan URL http://10.0.2.2/
                 final response = await request.login(
-                    "https://rana-koesumastuti-tugas.pbp.cs.ui.ac.id/auth/login/",
+                    "http://127.0.0.1:8000/auth/login/",
                     // "http://rana-koesumastuti-tugas.pbp.cs.ui.ac.id/login/?next=/",
                     {
                       'username': username,
@@ -109,9 +110,19 @@ class _LoginPageState extends State<LoginPage> {
               },
               child: const Text('Login'),
             ),
+              const SizedBox(height: 24.0),
+              ElevatedButton(
+                onPressed: (){
+                  Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(builder: (context) => RegisterPage()),
+                          );
+                },
+                child: const Text('Register'),
+              ),
           ],
-        ),
-      ),
-    );
-  }
+                ),
+            ),
+        );
+    }
 }

@@ -69,7 +69,7 @@ class RegisterPage extends StatelessWidget {
 
                 // Registrasi akun
                 final response = await request.register(
-                  "https://rana-koesumastuti-tugas.pbp.cs.ui.ac.id/auth/register/",
+                  "http://127.0.0.1:8000/auth/register/",
                   {
                     'username': username,
                     'password': password,

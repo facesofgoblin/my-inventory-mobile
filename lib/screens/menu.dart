@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_inventory/screens/list_product.dart';
 import 'package:my_inventory/screens/my_inventory_form.dart';
 import 'package:my_inventory/widgets/drawer_app.dart';
 
@@ -8,8 +9,7 @@ class MyHomePage extends StatelessWidget {
   //PENGERJAAN BONUS:
   final List<ShopItem> items = [
     ShopItem("Lihat Item", Icons.checklist, Colors.blue), // Warna biru
-    ShopItem(
-        "Tambah Item", Icons.add_shopping_cart, Colors.green), // Warna hijau
+    ShopItem("Tambah Item", Icons.add_shopping_cart, Colors.green), // Warna hijau
     ShopItem("Logout", Icons.logout, Colors.red), // Warna merah
   ];
 
@@ -104,6 +104,9 @@ class ShopCard extends StatelessWidget {
             Navigator.push(context,
             MaterialPageRoute(builder: (context) => const InventoryAppFormPage()));
 
+          }else if (item.name == "Lihat Produk") {
+            Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const ProductPage()));
           }
         },
         child: Container(

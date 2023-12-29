@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:my_inventory/screens/item_list.dart';
 
 class ItemDetailPage extends StatelessWidget {
-  final Item item;
+  final String name;
+  final int amount;
+  final String description;
 
-  const ItemDetailPage({required this.item});
-
+  const ItemDetailPage({Key? key, required this.name, required this.amount, required this.description}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Center(
           child: Text(
-            'Items Mobile Detail',
+            'Items Detail',
             style: TextStyle(color: Colors.white), // Warna teks
           ),
         ),
@@ -24,7 +24,7 @@ class ItemDetailPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              item.name,
+              name,
               style: const TextStyle(
                 color: Colors.indigo,
                 fontSize: 20,
@@ -33,7 +33,7 @@ class ItemDetailPage extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             Text(
-              'Amount: ${item.amount}',
+              'Amount: $amount',
               style: const TextStyle(
                 color: Colors.black,
                 fontSize: 18,
@@ -41,7 +41,7 @@ class ItemDetailPage extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             Text(
-              'Description: ${item.description}',
+              'Description: $description',
               style: const TextStyle(
                 color: Colors.black,
                 fontSize: 18,
