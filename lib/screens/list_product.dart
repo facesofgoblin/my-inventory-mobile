@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:my_inventory/models/product.dart';
+import 'package:my_inventory/screens/item_detail.dart';
 import 'package:my_inventory/widgets/drawer_app.dart';
 
 class ProductPage extends StatefulWidget {
@@ -13,17 +14,14 @@ class ProductPage extends StatefulWidget {
 
 class _ProductPageState extends State<ProductPage> {
   Future<List<Product>> fetchProduct() async {
-    //Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
     var url = Uri.parse('http://127.0.0.1:8000/get-product/');
     var response = await http.get(
       url,
       headers: {"Content-Type": "application/json"},
     );
 
-    // melakukan decode response menjadi bentuk json
     var data = jsonDecode(utf8.decode(response.bodyBytes));
 
-    // melakukan konversi data json menjadi object Product
     List<Product> list_product = [];
     for (var d in data) {
       if (d != null) {
@@ -51,40 +49,54 @@ class _ProductPageState extends State<ProductPage> {
                     children: [
                       Text(
                         "Tidak ada data produk.",
-                        style:
-                            TextStyle(color: Color(0xff59A5D8), fontSize: 20),
+                        style: TextStyle(color: Color(0xff59A5D8), fontSize: 20),
                       ),
                       SizedBox(height: 8),
                     ],
                   );
                 } else {
                   return ListView.builder(
-                      itemCount: snapshot.data!.length,
-                      itemBuilder: (_, index) => Container(
-                            margin: const EdgeInsets.symmetric(
-                                horizontal: 16, vertical: 12),
-                            padding: const EdgeInsets.all(20.0),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "${snapshot.data![index].fields.name}",
-                                  style: const TextStyle(
-                                    fontSize: 18.0,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                const SizedBox(height: 10),
-                                Text("${snapshot.data![index].fields.amount}"),
-                                const SizedBox(height: 10),
-                                Text(
-                                    "${snapshot.data![index].fields.description}")
-                              ],
+                    itemCount: snapshot.data!.length,
+                    itemBuilder: (_, index) => Container(
+                      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                      padding: const EdgeInsets.all(20.0),
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ItemDetailPage(
+                                name: snapshot.data![index].fields.name,
+                                amount: snapshot.data![index].fields.amount,
+                                description: snapshot.data![index].fields.description,
+                              ),
                             ),
-                          ));
+                          );
+                        },
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "${snapshot.data![index].fields.name}",
+                              style: const TextStyle(
+                                fontSize: 18.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const SizedBox(height: 10),
+                            Text("${snapshot.data![index].fields.amount}"),
+                            const SizedBox(height: 10),
+                            Text("${snapshot.data![index].fields.description}")
+                          ],
+                        ),
+                      ),
+                    ),
+                  );
                 }
               }
-            }));
+            },
+        ),
+    );
   }
 }
